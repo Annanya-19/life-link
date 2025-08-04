@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Life Link - Leaderboard</title>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+  <style>
+    body { margin: 0; font-family: 'Segoe UI', sans-serif; background: url('hero2.jpg') no-repeat center center/cover; }
+
+    header {
+      background: #e53935;
+      color: white;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 15px 50px;
+      position: fixed;
+      width: 100%;
+      top: 0;
+      z-index: 100;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+    }
+
+    header .logo { font-weight: bold; font-size: 1.7em; }
+    header ul { list-style: none; display: flex; margin: 0; padding: 0; }
+    header li { margin-left: 25px; }
+    header a { color: white; text-decoration: none; font-weight: bold; }
+
+    .container {
+      background: rgba(0,0,0,0.7);
+      padding: 30px;
+      margin: 120px auto 30px;
+      max-width: 700px;
+      border-radius: 20px;
+      box-shadow: 0 10px 40px rgba(0,0,0,0.7);
+      color: white;
+      text-align: center;
+      animation: fadeIn 1.2s ease;
+    }
+
+    h1 {
+      font-size: 2.2em;
+      color: #ffdddd;
+      text-shadow: 0 0 15px red, 0 0 30px darkred;
+      margin-bottom: 20px;
+    }
+
+    table {
+      width: 100%;
+      margin: 15px 0;
+      border-collapse: collapse;
+    }
+
+    th, td {
+      padding: 12px;
+      border-bottom: 1px solid rgba(255,255,255,0.3);
+      text-align: center;
+    }
+
+    th {
+      color: #ffbbbb;
+    }
+
+    .medal {
+      font-size: 1.5em;
+      text-shadow: 0 0 10px gold;
+    }
+
+    canvas { margin-top: 20px; }
+
+    @keyframes fadeIn { from {opacity:0;} to {opacity:1;} }
+  </style>
+</head>
+<body>
+
+<!-- Navbar -->
+<header>
+  <div class="logo">Bonded</div>
+  <nav>
+    <ul>
+      <li><a href="index.html">Home</a></li>
+      <li><a href="leaderboard.html">Leaderboard</a></li>
+      <li><a href="dashboard.html">Dashboard</a></li>
+      <li><a href="profile.html">Profile</a></li>
+      <li><a href="appointment.html">Appointment</a></li>
+    </ul>
+  </nav>
+</header>
+
+<!-- Leaderboard Container -->
+<div class="container">
+  <h1>🏆 Top Donors Leaderboard</h1>
+  
+  <!-- Leaderboard Table -->
+  <table>
+    <tr>
+      <th>Rank</th>
+      <th>Name</th>
+      <th>Donations</th>
+      <th>Medal</th>
+    </tr>
+    <tr>
+      <td>1</td>
+      <td>Aarav Sharma</td>
+      <td>15</td>
+      <td class="medal">🏅</td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td>Priya Singh</td>
+      <td>13</td>
+      <td class="medal">🥈</td>
+    </tr>
+    <tr>
+      <td>3</td>
+      <td>Rohan Gupta</td>
+      <td>11</td>
+      <td class="medal">🥉</td>
+    </tr>
+    <tr>
+      <td>4</td>
+      <td>Neha Verma</td>
+      <td>9</td>
+      <td>-</td>
+    </tr>
+    <tr>
+      <td>5</td>
+      <td>Aditya Mehta</td>
+      <td>8</td>
+      <td>-</td>
+    </tr>
+  </table>
+
+  <!-- Bar Graph -->
+  <canvas id="donorChart" width="400" height="250"></canvas>
+</div>
+
+<script>
+// Confetti animation on page load
+window.onload = function() {
+  confetti({
+    particleCount: 150,
+    spread: 70,
+    origin: { y: 0.6 }
+  });
+
+  // Bar chart for donor data
+  const ctx = document.getElementById('donorChart').getContext('2d');
+  new Chart(ctx, {
+    type: 'bar',
+    data: {
+      labels: ['Aarav Sharma', 'Priya Singh', 'Rohan Gupta', 'Neha Verma', 'Aditya Mehta'],
+      datasets: [{
+        label: 'Number of Donations',
+        data: [15, 13, 11, 9, 8],
+        backgroundColor: [
+          'gold', 'silver', '#cd7f32', 'red', 'darkred'
+        ],
+        borderRadius: 10
+      }]
+    },
+    options: {
+      responsive: true,
+      plugins: { legend: { display: false } },
+      scales: {
+        x: { ticks: { color: 'white' } },
+        y: { ticks: { color: 'white', stepSize: 1 } }
+      }
+    }
+  });
+};
+</script>
+</body>
+</html>
+

@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Life Link - Profile</title>
+  <style>
+    body { margin: 0; font-family: 'Segoe UI', sans-serif; background: url('blood-bg.jpg') no-repeat center center/cover; }
+
+    header {
+      background: #e53935;
+      color: white;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 15px 50px;
+      position: fixed;
+      width: 100%;
+      top: 0;
+      z-index: 100;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+    }
+
+    header .logo { font-weight: bold; font-size: 1.7em; }
+    header ul { list-style: none; display: flex; margin: 0; padding: 0; }
+    header li { margin-left: 25px; }
+    header a { color: white; text-decoration: none; font-weight: bold; }
+
+    .container {
+      background: rgba(0,0,0,0.7);
+      padding: 30px;
+      margin: 120px auto 50px;
+      max-width: 550px;
+      border-radius: 20px;
+      box-shadow: 0 10px 40px rgba(0,0,0,0.7);
+      color: white;
+      text-align: center;
+      animation: fadeIn 1.2s ease;
+    }
+
+    input, select, textarea {
+      width: 85%;
+      padding: 12px;
+      margin: 12px 0;
+      border: none;
+      border-radius: 8px;
+      font-size: 1.05em;
+    }
+    textarea { height: 70px; resize: none; }
+
+    .btn {
+      display: inline-block;
+      padding: 12px 30px;
+      border-radius: 30px;
+      text-decoration: none;
+      font-weight: bold;
+      transition: 0.3s;
+      font-size: 1.1em;
+      margin-top: 10px;
+      background: linear-gradient(45deg, #ff4d4d, #b30000);
+      color: white;
+      cursor: pointer;
+      box-shadow: 0 0 15px #ff4d4d;
+    }
+
+    .btn:hover { transform: scale(1.05); box-shadow: 0 0 25px #ff4d4d; }
+
+    .congrats {
+      text-align: center;
+      font-size: 1.3em;
+      margin: 20px;
+      color: #ffdddd;
+      text-shadow: 0 0 10px red, 0 0 20px darkred;
+      display: none;
+    }
+
+    .profile-summary {
+      background: rgba(0,0,0,0.75);
+      padding: 20px;
+      border-radius: 15px;
+      margin: 20px auto;
+      max-width: 550px;
+      color: white;
+      display: none;
+      text-align: left;
+    }
+
+    @keyframes fadeIn { from {opacity:0;} to {opacity:1;} }
+  </style>
+</head>
+<body>
+
+<!-- Navbar -->
+<header>
+  <div class="logo">Bonded</div>
+  <nav>
+    <ul>
+      <li><a href="index.html">Home</a></li>
+      <li><a href="leaderboard.html">Leaderboard</a></li>
+      <li><a href="dashboard.html">Dashboard</a></li>
+      <li><a href="profile.html">Profile</a></li>
+      <li><a href="appointment.html">Appointment</a></li>
+    </ul>
+  </nav>
+</header>
+
+<!-- Profile Form -->
+<div class="container">
+  <h1>🩸 Donor Profile</h1>
+  <form id="profileForm">
+    <input type="text" id="name" placeholder="Full Name" required><br>
+    <input type="email" id="email" placeholder="Email Address" required><br>
+    <input type="number" id="age" placeholder="Age" required><br>
+    <input type="text" id="blood" placeholder="Blood Group (e.g. O+)" required><br>
+
+    <label>Last Donation Date:</label><br>
+    <input type="date" id="lastDate"><br>
+
+    <input type="text" id="location" placeholder="Last Donation Location"><br>
+    <textarea id="experience" placeholder="Share Your Donation Experience"></textarea><br>
+
+    <textarea id="medical" placeholder="Any medical conditions (if none, write 'None')"></textarea><br>
+
+    <button type="button" class="btn" onclick="completeProfile()">Complete Profile</button>
+  </form>
+</div>
+
+<!-- Congratulations & Summary -->
+<div class="congrats" id="congratsMsg">🎉 Congratulations! You are now a LifeLink member.</div>
+<div class="profile-summary" id="profileSummary"></div>
+
+<script>
+function completeProfile() {
+  document.getElementById('congratsMsg').style.display = 'block';
+
+  const name = document.getElementById('name').value;
+  const email = document.getElementById('email').value;
+  const age = document.getElementById('age').value;
+  const blood = document.getElementById('blood').value;
+  const lastDate = document.getElementById('lastDate').value;
+  const location = document.getElementById('location').value;
+  const experience = document.getElementById('experience').value;
+  const medical = document.getElementById('medical').value;
+
+  const summary = `
+    <h3>Profile Summary</h3>
+    <p><strong>Name:</strong> ${name}</p>
+    <p><strong>Email:</strong> ${email}</p>
+    <p><strong>Age:</strong> ${age}</p>
+    <p><strong>Blood Group:</strong> ${blood}</p>
+    <p><strong>Last Donation Date:</strong> ${lastDate}</p>
+    <p><strong>Last Donation Location:</strong> ${location}</p>
+    <p><strong>Experience:</strong> ${experience}</p>
+    <p><strong>Medical Conditions:</strong> ${medical}</p>
+  `;
+  const summaryBox = document.getElementById('profileSummary');
+  summaryBox.innerHTML = summary;
+  summaryBox.style.display = 'block';
+}
+</script>
+</body>
+</html>
+
+
+

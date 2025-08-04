@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Life Link - Appointment</title>
+  <style>
+    body { margin: 0; font-family: 'Segoe UI', sans-serif; background: url('blood1.jpg') no-repeat center center/cover; }
+
+    header {
+      background: #e53935;
+      color: white;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 15px 50px;
+      position: fixed;
+      width: 100%;
+      top: 0;
+      z-index: 100;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+    }
+
+
+    header .logo { font-weight: bold; font-size: 1.7em; }
+    header ul { list-style: none; display: flex; margin: 0; padding: 0; }
+    header li { margin-left: 25px; }
+    header a { color: white; text-decoration: none; font-weight: bold; }
+
+    .container {
+      background: rgba(0,0,0,0.7);
+      padding: 30px;
+      margin: 120px auto 50px;
+      max-width: 550px;
+      border-radius: 20px;
+      box-shadow: 0 10px 40px rgba(0,0,0,0.7);
+      color: white;
+      text-align: center;
+      animation: fadeIn 1.2s ease;
+    }
+
+    input, select, textarea {
+      width: 85%;
+      padding: 12px;
+      margin: 12px 0;
+      border: none;
+      border-radius: 8px;
+      font-size: 1.05em;
+    }
+
+    textarea { height: 70px; resize: none; }
+
+    .gender-options {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      margin: 12px 0;
+    }
+    .gender-options label {
+      color: white;
+      cursor: pointer;
+    }
+
+    .btn {
+      display: inline-block;
+      padding: 12px 30px;
+      border-radius: 30px;
+      text-decoration: none;
+      font-weight: bold;
+      transition: 0.3s;
+      font-size: 1.1em;
+      margin-top: 10px;
+      background: linear-gradient(45deg, #ff4d4d, #b30000);
+      color: white;
+      cursor: pointer;
+      box-shadow: 0 0 15px #ff4d4d;
+    }
+
+    .btn:hover { transform: scale(1.05); box-shadow: 0 0 25px #ff4d4d; }
+
+    /* Terms & Conditions alignment */
+    .terms {
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+      width: 85%;
+      margin: 10px auto;
+      text-align: left;
+    }
+
+    .terms label {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 1em;
+      color: white;
+      cursor: pointer;
+    }
+
+    .confirmation {
+      text-align: center;
+      font-size: 1.3em;
+      margin: 20px;
+      color: #ffdddd;
+      text-shadow: 0 0 10px red, 0 0 20px darkred;
+      display: none;
+    }
+
+    .appointment-summary {
+      background: rgba(0,0,0,0.75);
+      padding: 20px;
+      border-radius: 15px;
+      margin: 20px auto;
+      max-width: 550px;
+      color: white;
+      display: none;
+      text-align: left;
+    }
+
+    .error-msg {
+      color: #ff6666;
+      font-size: 1.2em;
+      margin-top: 20px;
+      display: none;
+    }
+
+    .info-msg {
+      color: #ffffaa;
+      font-size: 0.95em;
+      margin: -5px 0 10px 0;
+      display: none;
+    }
+
+    @keyframes fadeIn { from {opacity:0;} to {opacity:1;} }
+  </style>
+</head>
+<body>
+
+<!-- Navbar -->
+<header>
+  <div class="logo">Bonded</div>
+  <nav>
+    <ul>
+      <li><a href="index.html">Home</a></li>
+      <li><a href="leaderboard.html">Leaderboard</a></li>
+      <li><a href="dashboard.html">Dashboard</a></li>
+      <li><a href="profile.html">Profile</a></li>
+      <li><a href="appointment.html">Appointment</a></li>
+    </ul>
+  </nav>
+</header>
+
+<!-- Appointment Form -->
+<div class="container">
+  <h1>📅 Book an Appointment</h1>
+  <form id="appointmentForm">
+    <input type="text" id="name" placeholder="Full Name" required><br>
+    <input type="email" id="email" placeholder="Email Address" required><br>
+    <input type="text" id="blood" placeholder="Blood Group (e.g. O+)" required><br>
+
+    <!-- Gender -->
+    <div class="gender-options">
+      <label><input type="radio" name="gender" value="Male" required> Male</label>
+      <label><input type="radio" name="gender" value="Female"> Female</label>
+      <label><input type="radio" name="gender" value="Other"> Other</label>
+    </div>
+
+    <label>Nearest Hospital:</label><br>
+    <input type="text" id="hospital" placeholder="Enter nearest hospital" required><br>
+
+    <label>Last Blood Donation Date:</label><br>
+    <input type="date" id="lastDonation" required onchange="showInfo()"><br>
+    <div class="info-msg" id="infoMsg">
+      ℹ️ Males can donate every 4 months (~120 days).  
+      Females/Other can donate every 5 months (~150 days).
+    </div>
+
+    <input type="text" id="amount" placeholder="Amount of blood donated (ml)" required><br>
+    
+    <label>Did you feel weakness after donation?</label><br>
+    <select id="weakness">
+      <option>No</option>
+      <option>Yes</option>
+    </select><br>
+
+    <textarea id="medications" placeholder="Current medications (if any)"></textarea><br>
+    <textarea id="experience" placeholder="Your last donation experience"></textarea><br>
+
+    <label>Choose Appointment Date:</label><br>
+    <input type="date" id="date" required><br>
+
+    <label>Select Time Slot:</label><br>
+    <select id="time">
+      <option>09:00 AM - 11:00 AM</option>
+      <option>11:00 AM - 01:00 PM</option>
+      <option>02:00 PM - 04:00 PM</option>
+      <option>04:00 PM - 06:00 PM</option>
+    </select><br>
+
+    <textarea id="remarks" placeholder="Any special request or note?"></textarea><br>
+
+    <!-- Terms & Conditions -->
+    <div class="terms">
+      <label>
+        <input type="checkbox" id="terms" required>
+        I agree to follow the health & safety guidelines.
+      </label>
+    </div>
+
+    <button type="button" class="btn" onclick="bookAppointment()">Book Appointment</button>
+  </form>
+
+  <div class="error-msg" id="errorMsg">❌ Sorry! You are not eligible to donate blood right now.</div>
+</div>
+
+<!-- Confirmation & Summary -->
+<div class="confirmation" id="confirmationMsg">🎉 Congratulations! You are going to save a life!</div>
+<div class="appointment-summary" id="appointmentSummary"></div>
+
+<script>
+function showInfo() {
+  document.getElementById('infoMsg').style.display = 'block';
+}
+
+function bookAppointment() {
+  const lastDonation = document.getElementById('lastDonation').value;
+  if(!document.getElementById('terms').checked){
+    alert("Please accept the Terms & Conditions to continue.");
+    return;
+  }
+
+  const gender = document.querySelector('input[name="gender"]:checked').value;
+  const minDays = (gender === 'Male') ? 120 : 150;
+
+  // Calculate days since last donation
+  const lastDate = new Date(lastDonation);
+  const today = new Date();
+  const diffTime = today - lastDate;
+  const diffDays = diffTime / (1000 * 3600 * 24);
+
+  if(diffDays < minDays) {
+    document.getElementById('errorMsg').style.display = 'block';
+    document.getElementById('confirmationMsg').style.display = 'none';
+    document.getElementById('appointmentSummary').style.display = 'none';
+    return;
+  } else {
+    document.getElementById('errorMsg').style.display = 'none';
+  }
+
+  document.getElementById('confirmationMsg').style.display = 'block';
+
+  // Collect form data
+  const name = document.getElementById('name').value;
+  const email = document.getElementById('email').value;
+  const blood = document.getElementById('blood').value;
+  const hospital = document.getElementById('hospital').value;
+  const amount = document.getElementById('amount').value;
+  const weakness = document.getElementById('weakness').value;
+  const medications = document.getElementById('medications').value;
+  const experience = document.getElementById('experience').value;
+  const date = document.getElementById('date').value;
+  const time = document.getElementById('time').value;
+  const remarks = document.getElementById('remarks').value;
+
+  // Show summary
+  const summary = `
+    <h3>Appointment Summary</h3>
+    <p><strong>Name:</strong> ${name}</p>
+    <p><strong>Email:</strong> ${email}</p>
+    <p><strong>Gender:</strong> ${gender}</p>
+    <p><strong>Blood Group:</strong> ${blood}</p>
+    <p><strong>Nearest Hospital:</strong> ${hospital}</p>
+    <p><strong>Last Donation Date:</strong> ${lastDonation}</p>
+    <p><strong>Blood Donated:</strong> ${amount} ml</p>
+    <p><strong>Weakness After Donation:</strong> ${weakness}</p>
+    <p><strong>Medications:</strong> ${medications}</p>
+    <p><strong>Experience:</strong> ${experience}</p>
+    <p><strong>Appointment Date:</strong> ${date}</p>
+    <p><strong>Time Slot:</strong> ${time}</p>
+    <p><strong>Remarks:</strong> ${remarks}</p>
+  `;
+  const summaryBox = document.getElementById('appointmentSummary');
+  summaryBox.innerHTML = summary;
+  summaryBox.style.display = 'block';
+
+  // Reset the form
+  document.getElementById('appointmentForm').reset();
+}
+</script>
+</body>
+</html>
+

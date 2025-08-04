@@ -1,0 +1,137 @@
+body {
+  margin: 0;
+  font-family: 'Segoe UI', sans-serif;
+  overflow-x: hidden;
+  color: white;
+}
+
+/* Navigation Bar */
+header {
+  background: #e53935;
+  color: white;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 50px;
+  position: fixed;
+  width: 100%;
+  top: 0;
+  z-index: 100;
+}
+
+header .logo { font-weight: bold; font-size: 1.5em; }
+header ul { list-style: none; display: flex; margin: 0; padding: 0; }
+header li { margin-left: 25px; }
+header a { color: white; text-decoration: none; font-weight: bold; }
+
+/* Slideshow Sections */
+.slideshow {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  overflow: hidden;
+}
+
+.slideshow img {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0;
+  transition: opacity 1s ease-in-out;
+}
+
+.slideshow img.active { opacity: 1; }
+
+/* Overlay for Text */
+.overlay {
+  position: absolute;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  background: rgba(0,0,0,0.5);
+  padding: 30px;
+  border-radius: 20px;
+  animation: fadeIn 1.5s ease;
+}
+
+.overlay h1 { font-size: 2.5em; margin-bottom: 20px; }
+.overlay h2 { font-size: 1.5em; margin-bottom: 15px; }
+
+/* Buttons */
+.btn {
+  display: inline-block;
+  padding: 12px 30px;
+  margin: 10px;
+  border-radius: 30px;
+  text-decoration: none;
+  font-weight: bold;
+  transition: 0.3s;
+}
+
+.primary { background: #e53935; color: white; }
+.primary:hover { background: #b71c1c; transform: scale(1.05); }
+
+.secondary { background: white; color: #e53935; }
+.secondary:hover { background: #f8d7da; }
+
+/* Form Containers */
+.container {
+  margin: 100px auto;
+  background: rgba(0,0,0,0.7);
+  padding: 40px;
+  max-width: 600px;
+  border-radius: 20px;
+  box-shadow: 0 10px 40px rgba(0,0,0,0.7);
+  text-align: center;
+  animation: fadeIn 1.5s ease;
+}
+
+input, select, textarea {
+  width: 85%;
+  padding: 12px;
+  margin: 12px 0;
+  border: none;
+  border-radius: 8px;
+  font-size: 1.1em;
+}
+
+textarea { height: 80px; resize: none; }
+
+/* Leaderboard */
+.leaderboard-container {
+  margin: 120px auto;
+  max-width: 800px;
+  background: rgba(0,0,0,0.7);
+  padding: 40px;
+  border-radius: 20px;
+  text-align: center;
+  box-shadow: 0 10px 40px rgba(0,0,0,0.7);
+  animation: fadeIn 1.5s ease;
+}
+
+.leaderboard-container ol {
+  list-style: none;
+  padding: 0;
+  font-size: 1.5em;
+}
+
+.top1 { color: gold; animation: glow 1.5s infinite alternate; }
+.top2 { color: silver; animation: glow 1.5s infinite alternate; }
+.top3 { color: #cd7f32; animation: glow 1.5s infinite alternate; }
+
+@keyframes glow {
+  0% { text-shadow: 0 0 10px white; }
+  100% { text-shadow: 0 0 25px white; }
+}
+
+canvas {
+  margin-top: 30px;
+  background: rgba(255,255,255,0.05);
+  border-radius: 15px;
+  padding: 15px;
+}
+
+@keyframes fadeIn { from {opacity:0;transform:translateY(30px);} to {opacity:1;transform:translateY(0);} }
+
+
